@@ -1,27 +1,26 @@
 import { Button, Container, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Typography } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import useAuth from '../../../../hooks/useAuth';
 
-const ManageAllOrders = (props) => {
-    const { orderStatus } = props.bookingInfo;
-    const { user } = useAuth();
-    const [approved, setApproved] = useState(false);
+const ManageAllOrders = () => {
     const [allOrders, setAllOrders] = useState([])
+    const initialOrderStatus = { status: 'Pending' }
+    const [approved, setApproved] = useState(initialOrderStatus);
 
     // load all orders on UI
     useEffect(() => {
-        fetch('http://localhost:5000/orders')
+        fetch('https://fierce-garden-19030.herokuapp.com/orders')
             .then(res => res.json())
-            .then(data => {
-                setAllOrders(data)
+            .then(data => setAllOrders(data));
+    }, [])
 
-            });
-    })
-    // delete specifi order
+    const handleApproveOrder = e => {
+        setApproved(true);
+    }
+    // delete specific order
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete?');
         if (proceed) {
-            const url = `http://localhost:5000/orders/${id}`;
+            const url = `https://fierce-garden-19030.herokuapp.com/orders/${id}`;
             fetch(url, {
                 method: 'DELETE'
             })
@@ -29,17 +28,17 @@ const ManageAllOrders = (props) => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         alert('deleted')
+                        const remainingOrders = allOrders.filter(order => order._id !== id);
+                        setAllOrders(remainingOrders);
                     };
                 })
         }
     }
-    const handleOnClick = e => {
-        setApproved(true)
-    }
+
 
     // Update order status
     const handleUpdateStatus = id => {
-        const url = `http://localhost:5000/orders/${id}`;
+        const url = `https://fierce-garden-19030.herokuapp.com/orders/${id}`;
         fetch(url, {
             method: 'PUT',
             headers: {
@@ -48,8 +47,9 @@ const ManageAllOrders = (props) => {
             body: JSON.stringify()
 
         })
-            .then()
-        console.log()
+            .then(res => res.json())
+            .then(data => console.log(data));
+
     }
 
     return (
@@ -77,9 +77,9 @@ const ManageAllOrders = (props) => {
                                         {row.name}
                                     </TableCell>
                                     <TableCell align="right">{row.productName}</TableCell>
-                                    <TableCell align="right">{row.productDescription}</TableCell>
-                                    <TableCell align="right"><Button onClick={() => handleUpdateStatus(row._id)} style={{ color: 'red' }}>Pending</Button></TableCell>
-                                    <TableCell align="right"><Button onClick={() => handleDelete(row._id)}>Delete Order</Button></TableCell>
+                                    <TableCell align="right">{row.productPrice}</TableCell>
+                                    <TableCell align="right"><Button variant="contained" onClick={() => handleUpdateStatus(row._id)} style={{ color: 'red' }}>{row.status}</Button></TableCell>
+                                    <TableCell align="right"><Button onClick={() => handleApproveOrder(row._id)}></Button><Button onClick={() => handleDelete(row._id)}>Delete Order</Button></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

@@ -8,7 +8,7 @@ const useFirebase = () => {
     const [user, setUser] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [authError, setAuthError] = useState();
-
+    const [admin, setAdmin] = useState(false);
     const auth = getAuth();
     // Register new user with email and paswword
     const registerUser = (email, password, history, name) => {
@@ -19,6 +19,8 @@ const useFirebase = () => {
                 const user = result.user;
                 const newUser = { email, displayName: name };
                 setUser(newUser);
+                // save user to the database
+                saveUser(email, name);
                 // send name to firebase after creation
                 updateProfile(auth.currentUser, {
                     displayName: name
@@ -48,8 +50,7 @@ const useFirebase = () => {
                 history.replace(destination);
             })
             .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
+
             })
             .finally(() => setIsLoading(false));;
     }
@@ -67,7 +68,15 @@ const useFirebase = () => {
         });
         return () => unsubscribe;
 
-    }, [])
+    }, [auth])
+
+    // make an user admin
+    useEffect(() => {
+        const url = `https://fierce-garden-19030.herokuapp.com/users/${user.email}`;
+        fetch(url)
+            .then(res => res.json())
+            .then(data => setAdmin(data.admin))
+    }, [user.email])
 
     // Sign Out an user
 
@@ -81,10 +90,22 @@ const useFirebase = () => {
             .finally(() => setIsLoading(false));
     }
 
+    const saveUser = (email, displayName) => {
+        const user = { email, displayName };
+        fetch('https://fierce-garden-19030.herokuapp.com/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then()
 
+    }
     return {
         user,
         isLoading,
+        admin,
         registerUser,
         loginUser,
         logOut,

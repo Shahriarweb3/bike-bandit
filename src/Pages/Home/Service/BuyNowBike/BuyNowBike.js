@@ -1,20 +1,22 @@
-import { Container, Card, CardContent, CardMedia, Grid, Typography } from '@mui/material';
+import { Container, Card, CardContent, CardMedia, Grid, Typography, TextField } from '@mui/material';
+import userEvent from '@testing-library/user-event';
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router';
+import useAuth from '../../../../hooks/useAuth';
 import BuyerInfo from './BuyerInfo/BuyerInfo';
 import './BuyerInfo/BuyerInfo.css';
 
-const BuyNowBike = ({ bike }) => {
+const BuyNowBike = () => {
     // const { _id, name, description, img } = bike;
+    const { user } = useAuth();
     const { bikeId } = useParams();
     const [buyNow, setBuyNow] = useState({});
-    const [bikes, setBikes] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/motorBikes/${bikeId}`)
+        fetch(`https://fierce-garden-19030.herokuapp.com/motorBikes/${bikeId}`)
             .then(res => res.json())
             .then(data => setBuyNow(data));
-    }, [])
+    }, [bikeId])
 
     return (
         <div>
@@ -33,10 +35,13 @@ const BuyNowBike = ({ bike }) => {
                         />
                         <CardContent>
                             <Typography gutterBottom variant="h5" component="div">
-                                {buyNow.name}
+                                {buyNow.productName}
+                            </Typography>
+                            <Typography gutterBottom variant="h5" component="div">
+                                {buyNow.productPrice}
                             </Typography>
                             <Typography variant="body2" color="text.secondary">
-                                {buyNow.description}
+                                {buyNow.productDescription}
                             </Typography>
                         </CardContent>
                     </Card>

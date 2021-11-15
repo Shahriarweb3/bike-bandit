@@ -1,4 +1,3 @@
-import { stringify } from '@firebase/util';
 import React from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -7,7 +6,7 @@ const AddProduct = () => {
 
     const onSubmit = data => {
 
-        fetch('http://localhost:5000/motorbikes', {
+        fetch('https://fierce-garden-19030.herokuapp.com/motorbikes', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -22,12 +21,11 @@ const AddProduct = () => {
             })
     }
     return (
-        <div>
+        <div style={{ marginBottom: '150px' }}>
             <form className="shipping-form" onSubmit={handleSubmit(onSubmit)}>
-
-                <input defaultValue="" placeholder="Product Name" {...register("name")} />
-                <input defaultValue="" placeholder="Description" {...register("description")} />
-                <input placeholder="Price" defaultValue="" {...register("price")} />
+                <input defaultValue="" placeholder="Product Name" {...register("productName")} />
+                <input defaultValue="" placeholder="Description" {...register("productDescription")} />
+                <input placeholder="Price" defaultValue="" {...register("productPrice")} />
                 <input placeholder="Image url" defaultValue="" {...register("img")} />
                 <input type="submit" />
             </form>

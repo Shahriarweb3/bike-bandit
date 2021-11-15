@@ -11,7 +11,7 @@ import { Link, NavLink } from 'react-router-dom';
 
 const SingleBike = ({ bike }) => {
     // const { name, description, img } = props.bike;
-    const { _id, name, description, img } = bike;
+    const { _id, productName, productDescription, productPrice, img } = bike;
     return (
 
         <Grid item xs={4} sm={4} md={4} >
@@ -27,10 +27,13 @@ const SingleBike = ({ bike }) => {
                 />
                 <CardContent>
                     <Typography gutterBottom variant="h5" component="div">
-                        {name}
+                        {productName}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                        {description}
+                        {productDescription}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary">
+                        {productPrice}
                     </Typography>
                 </CardContent>
                 <CardActions>

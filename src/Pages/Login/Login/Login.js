@@ -21,53 +21,54 @@ const Login = () => {
     }
     const handleLoginSubmit = e => {
         loginUser(loginData.email, loginData.password, location, history)
-        alert('hello')
         e.preventDefault();
     }
     return (
-        <Container>
-            <h2>this is login</h2>
-            <Grid container spacing={2}>
-                <Grid sx={{ mt: 8 }} item xs={12} md={6}>
-                    <Typography variant="body1" gutterBottom>
-                        Login
-                        <form onSubmit={handleLoginSubmit}>
-                            <TextField
-                                sx={{ width: '75%' }}
-                                id="standard-basic"
-                                name="email"
-                                onBlur={handleOnChange}
-                                label="Your Email"
-                                variant="standard" />
-                            <br />
-                            <TextField
-                                sx={{ width: '75%' }}
-                                id="standard-basic"
-                                label="Password"
-                                name="password"
-                                onBlur={handleOnChange}
-                                type="password"
-                                variant="standard" />
-                            <NavLink
-                                to="/register"
-                                style={{ textDecoration: "none" }}
-                            >
-                                <Button variant="text">New User? Please Register</Button>
-                            </NavLink>
+        <div >
+            <h2 style={{ color: 'purple' }}>Please Login</h2>
+            <Container sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                p: 1,
+                m: 1,
+            }} item xs={12} md={6}>
 
-                            <br />
-                            <br />
-                            <Button type="submit" variant="contained" style={{ backgroundColor: '#46CAC4' }}>LOGIN</Button>
-                        </form>
-                    </Typography>
-                </Grid>
-                <Grid item xs={12} md={6}>
-                    <img stye={{ width: '100%' }} src={login} alt="" />
-                </Grid>
+                <div container spacing={2} sx={{ mt: 8 }} item xs={12} md={6}>
 
-            </Grid>
+                    <form onSubmit={handleLoginSubmit}>
+                        <TextField
+                            sx={{ width: '75%' }}
+                            id="standard-basic"
+                            name="email"
+                            onBlur={handleOnChange}
+                            label="Your Email"
+                            variant="standard" />
+                        <br />
+                        <TextField
+                            sx={{ width: '75%' }}
+                            id="standard-basic"
+                            label="Password"
+                            name="password"
+                            onBlur={handleOnChange}
+                            type="password"
+                            variant="standard" />
+                        <NavLink
+                            to="/register"
+                            style={{ textDecoration: "none" }}
+                        >
+                            <Button variant="text">New User? Please Register</Button>
+                        </NavLink>
 
-        </Container>
+                        <br />
+                        <br />
+                        <Button type="submit" variant="contained" style={{ backgroundColor: '#46CAC4' }}>LOGIN</Button>
+                    </form>
+                </div>
+
+
+
+            </Container>
+        </div>
     );
 };
 

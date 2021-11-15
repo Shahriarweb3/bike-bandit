@@ -1,13 +1,12 @@
-import { Button, CircularProgress, Grid, TextField, Typography } from '@mui/material';
+import { Button, Grid, TextField } from '@mui/material';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
 import useAuth from '../../../../../hooks/useAuth';
 
 
 const BuyerInfo = (props) => {
     const { user } = useAuth();
-    const { name, description } = props.buyNow;
-    const initialBookingInfo = { name: user.displayName, email: user.email, productName: name, productDescription: description, address: '', city: '', phone: '', orderStatus: 'Pending' }
+    const { productName, productPrice } = props.buyNow;
+    const initialBookingInfo = { name: user.displayName, email: user.email, address: '', city: '', phone: '' }
     const [bookingInfo, setBookingInfo] = useState(initialBookingInfo);
 
 
@@ -21,8 +20,8 @@ const BuyerInfo = (props) => {
 
 
     const onSubmit = e => {
-        const orderConfirm = { ...bookingInfo }
-        fetch('http://localhost:5000/orders', {
+        const orderConfirm = { ...bookingInfo, productName, productPrice }
+        fetch('https://fierce-garden-19030.herokuapp.com/orders', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -39,6 +38,7 @@ const BuyerInfo = (props) => {
 
         e.preventDefault();
     };
+
     return (
 
         < div >
@@ -62,19 +62,21 @@ const BuyerInfo = (props) => {
                         variant="standard" />
                     <br />
                     <TextField
+                        disabled
                         sx={{ width: '75%' }}
                         id="standard-basic"
                         name="productName"
-                        defaultValue={name}
-                        onBlur={handleOnBlur}
+                        value={`Bike Name: ${productName}`}
                         variant="standard" />
+
                     <TextField
+                        disabled
                         sx={{ width: '75%' }}
                         id="standard-basic"
-                        name="productDescription"
-                        defaultValue={description}
-                        onBlur={handleOnBlur}
+                        name="productPrice"
+                        value={`Tk ${productPrice}`}
                         variant="standard" />
+
                     <TextField
                         sx={{ width: '75%' }}
                         id="standard-basic"

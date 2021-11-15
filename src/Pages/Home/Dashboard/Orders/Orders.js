@@ -16,19 +16,17 @@ const Orders = () => {
 
     // send data to server to load orders by email 
     useEffect(() => {
-        const url = `http://localhost:5000/orders?email=${user.email}`
+        const url = `https://fierce-garden-19030.herokuapp.com/orders?email=${user.email}`
         fetch(url)
             .then(res => res.json())
-            .then(data => {
-                setMyOrders(data)
+            .then(result => setMyOrders(result));
+    }, [user.email])
 
-            });
-    })
     // delete and order
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete?');
         if (proceed) {
-            const url = `http://localhost:5000/orders/${id}`;
+            const url = `https://fierce-garden-19030.herokuapp.com/orders/${id}`;
             fetch(url, {
                 method: 'DELETE'
             })
@@ -36,13 +34,18 @@ const Orders = () => {
                 .then(data => {
                     if (data.deletedCount > 0) {
                         alert('deleted')
+                        const remainingOrders = myOrders.filter(order => order._id !== id);
+                        setMyOrders(remainingOrders);
                     };
+
                 })
         }
     }
 
+
+
     return (
-        <div>
+        <div style={{ marginBottom: '250px' }}>
             <Container >
                 <Typography variant="h4" sx={{ textAlign: 'center', fontWeight: 'bold', my: 4 }}>Your Total Orders: {myOrders.length}</Typography>
                 <TableContainer component={Paper}>

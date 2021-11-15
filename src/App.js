@@ -1,6 +1,5 @@
 import './App.css';
 import React from "react";
-import { Router } from 'react-router';
 import { Switch } from 'react-router';
 import { Route } from 'react-router';
 import Home from './Pages/Home/Home/Home';
@@ -9,9 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 import Login from './Pages/Login/Login/Login';
 import Register from './Pages/Login/Register/Register';
 import BuyNowBike from './Pages/Home/Service/BuyNowBike/BuyNowBike';
-import AddProduct from './Pages/Home/Service/AddProduct/AddProduct';
-import ManageAllOrders from './Pages/Home/Orders/MyOrders/ManageOrders';
-import Dashboard from './Pages/Home/Dashboard/Dashboard';
+import Explore from './Pages/Home/Explore/Explore';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
+import MyDashboard from './Pages/Home/Dashboard/MyDashboard';
+import Footer from './Shared/Footer/Footer';
+import Orders from './Pages/Home/Dashboard/Orders/Orders';
+import Navigation from './Shared/Navigation/Navigation';
+import NoRoute from './Pages/NoRoute/NoRoute';
 
 
 function App() {
@@ -19,18 +22,13 @@ function App() {
     <div className="App">
       <AuthProvider>
         <BrowserRouter>
+          <Navigation></Navigation>
           <Switch>
             <Route path="/home">
               <Home />
             </Route>
-            <Route path="/orders">
-              <ManageAllOrders />
-            </Route>
-            <Route path="/addproduct">
-              <AddProduct />
-            </Route>
-            <Route path="/dashboard">
-              <Dashboard />
+            <Route path="/explore">
+              <Explore />
             </Route>
             <Route path="/login">
               <Login />
@@ -38,17 +36,23 @@ function App() {
             <Route path="/register">
               <Register />
             </Route>
-            <Route path="/motorbikes/:bikeId">
+            <PrivateRoute path="/motorbikes/:bikeId">
               <BuyNowBike />
-            </Route>
-            <Route path="/buynowbike">
+            </PrivateRoute>
+            <PrivateRoute path="/buynowbike">
               <BuyNowBike />
+            </PrivateRoute>
+            <Route path="/dashboard">
+              <MyDashboard></MyDashboard>
             </Route>
-
             <Route exact path="/">
               <Home />
             </Route>
+            <Route exact path="*">
+              <NoRoute />
+            </Route>
           </Switch>
+          <Footer></Footer>
         </BrowserRouter>
       </AuthProvider>
     </div >

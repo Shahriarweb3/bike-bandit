@@ -9,10 +9,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { Link, NavLink } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 
-
-
 const Navigation = () => {
-    const { user, logOut, name } = useAuth();
+    const { user, logOut } = useAuth();
     // const { user, logOut, name } = useAuth();
     return (
         <Box sx={{ flexGrow: 1 }}>
@@ -28,7 +26,7 @@ const Navigation = () => {
                         <MenuIcon />
                     </IconButton>
                     <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        Doctors Portal
+                        Bike Bandit
                     </Typography>
                     <Link to="/home">
 
@@ -38,23 +36,28 @@ const Navigation = () => {
                         user?.email ?
 
                             <Box>
-                                <NavLink style={{ textDecoration: 'none' }} to="/orders">
-                                    <Button style={{ color: 'white' }} variant="text">Manage Orders</Button>
+                                <NavLink style={{ textDecoration: 'none' }} to="/">
+                                    <Button style={{ color: 'white' }} variant="text">Home</Button>
                                 </NavLink>
                                 <NavLink style={{ textDecoration: 'none' }} to="/dashboard">
                                     <Button style={{ color: 'white' }} variant="text">DashBoard</Button>
-                                </NavLink>
-                                <NavLink style={{ textDecoration: 'none' }} to="/addproduct">
-                                    <Button style={{ color: 'white' }} variant="text">Add a Product</Button>
                                 </NavLink>
                                 <Button onClick={logOut} color="inherit">Logout</Button>
 
                             </Box>
 
                             :
-                            <NavLink to="/login">
-                                <Button color="inherit">Login</Button>
-                            </NavLink>
+                            <Box>
+                                <NavLink style={{ textDecoration: 'none' }} to="/">
+                                    <Button style={{ color: 'white' }} variant="text">Home</Button>
+                                </NavLink>
+                                <NavLink style={{ textDecoration: 'none' }} to="/explore">
+                                    <Button style={{ color: 'white' }} >Our Products</Button>
+                                </NavLink>
+                                <NavLink style={{ textDecoration: 'none' }} to="/login">
+                                    <Button style={{ color: 'white' }} >Login</Button>
+                                </NavLink>
+                            </Box>
                     }
 
                 </Toolbar>

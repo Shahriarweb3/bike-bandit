@@ -3,10 +3,10 @@ import CircularProgress from '@mui/material/CircularProgress';
 import React, { useState } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import useAuth from '../../../hooks/useAuth';
-import login from '../../../images/login.png';
+import login from '../../../images/honda_cbr.jpg';
 
 const Register = () => {
-    const [loginData, setLoginData] = useState();
+    const [registerData, setRegisterData] = useState();
     const { user, registerUser, isLoading } = useAuth();
     const history = useHistory();
 
@@ -14,18 +14,18 @@ const Register = () => {
     const handleOnChange = e => {
         const field = e.target.name;
         const value = e.target.value;
-        const newLoginData = { ...loginData };
-        newLoginData[field] = value;
-        setLoginData(newLoginData);
+        const newRegisterData = { ...registerData };
+        newRegisterData[field] = value;
+        setRegisterData(newRegisterData);
 
     }
-    const handleLoginSubmit = e => {
+    const handleRegisterSubmit = e => {
 
-        if (loginData.password !== loginData.password2) {
+        if (registerData.password !== registerData.password2) {
             alert('Your password did not match');
             return
         }
-        registerUser(loginData.email, loginData.password, history, loginData.name);
+        registerUser(registerData.email, registerData.password, history, registerData.name);
         alert('Registered Successfully')
         e.preventDefault();
 
@@ -33,12 +33,12 @@ const Register = () => {
 
     return (
         <Container>
-
+            <h2 style={{ color: 'purple' }}>Please Register</h2>
             <Grid container spacing={2}>
+
                 <Grid sx={{ mt: 8 }} item xs={12} md={6}>
-                    <Typography variant="body1" gutterBottom>
-                        Register
-                        {!isLoading && <form onSubmit={handleLoginSubmit}>
+                    <Typography variant="h3" gutterBottom>
+                        {!isLoading && <form onSubmit={handleRegisterSubmit}>
                             <TextField
                                 sx={{ width: '75%' }}
                                 id="standard-basic"
