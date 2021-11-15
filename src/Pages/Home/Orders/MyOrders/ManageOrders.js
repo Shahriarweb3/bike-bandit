@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 const ManageAllOrders = () => {
     const [allOrders, setAllOrders] = useState([])
     const initialOrderStatus = { status: 'Pending' }
-    const [approved, setApproved] = useState(initialOrderStatus);
+    const [approved, setApproved] = useState('');
 
     // load all orders on UI
     useEffect(() => {
@@ -13,9 +13,6 @@ const ManageAllOrders = () => {
             .then(data => setAllOrders(data));
     }, [])
 
-    const handleApproveOrder = e => {
-        setApproved(true);
-    }
     // delete specific order
     const handleDelete = id => {
         const proceed = window.confirm('Are you sure, you want to delete?');
@@ -38,19 +35,20 @@ const ManageAllOrders = () => {
 
     // Update order status
     const handleUpdateStatus = id => {
-        const url = `https://fierce-garden-19030.herokuapp.com/orders/${id}`;
-        fetch(url, {
+        const orderStatus = { approved }
+        fetch('https://fierce-garden-19030.herokuapp.com/orders', {
             method: 'PUT',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify()
+            body: JSON.stringify(orderStatus)
 
         })
             .then(res => res.json())
-            .then(data => console.log(data));
+            .then(data => setApproved(data));
 
     }
+
 
     return (
         <div>
@@ -78,8 +76,8 @@ const ManageAllOrders = () => {
                                     </TableCell>
                                     <TableCell align="right">{row.productName}</TableCell>
                                     <TableCell align="right">{row.productPrice}</TableCell>
-                                    <TableCell align="right"><Button variant="contained" onClick={() => handleUpdateStatus(row._id)} style={{ color: 'red' }}>{row.status}</Button></TableCell>
-                                    <TableCell align="right"><Button onClick={() => handleApproveOrder(row._id)}></Button><Button onClick={() => handleDelete(row._id)}>Delete Order</Button></TableCell>
+                                    <TableCell align="right"><Button variant="contained" style={{ color: 'red' }}>Pending{row.OrderStatus}</Button></TableCell>
+                                    <TableCell align="right"><Button onClick={() => handleUpdateStatus(row._id)}>Approve Order</Button><Button onClick={() => handleDelete(row._id)}>Delete Order</Button></TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
