@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.62d36794.chunk.css",
+    "main.js": "/static/js/main.05910a09.chunk.js",
+    "main.js.map": "/static/js/main.05910a09.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.6fdc89b8.js",
+    "runtime-main.js.map": "/static/js/runtime-main.6fdc89b8.js.map",
+    "static/js/2.cd508d8c.chunk.js": "/static/js/2.cd508d8c.chunk.js",
+    "static/js/2.cd508d8c.chunk.js.map": "/static/js/2.cd508d8c.chunk.js.map",
+    "static/js/3.616216e6.chunk.js": "/static/js/3.616216e6.chunk.js",
+    "static/js/3.616216e6.chunk.js.map": "/static/js/3.616216e6.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.62d36794.chunk.css.map": "/static/css/main.62d36794.chunk.css.map",
+    "static/js/2.cd508d8c.chunk.js.LICENSE.txt": "/static/js/2.cd508d8c.chunk.js.LICENSE.txt",
+    "static/media/bikeBanner.2f927e35.jpg": "/static/media/bikeBanner.2f927e35.jpg",
+    "static/media/honda_cbr.45c92bf4.jpg": "/static/media/honda_cbr.45c92bf4.jpg",
+    "static/media/login.fe92a7a6.png": "/static/media/login.fe92a7a6.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.6fdc89b8.js",
+    "static/js/2.cd508d8c.chunk.js",
+    "static/css/main.62d36794.chunk.css",
+    "static/js/main.05910a09.chunk.js"
+  ]
+}
