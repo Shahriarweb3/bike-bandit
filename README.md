@@ -1,6 +1,7 @@
 # Niche website : Bike Bandit
 
-Bike Bandit website ur is :[Bike Bandit](https://fullstack-assignment-12.web.app/.
+Bike Bandit website ur is : [bike bandit](https://fullstack-assignment-12.web.app)
+
 
 This app was created with react integrating the back-end. Material UI was used for styling components, and few more pure css code were used too. 
 bootstrapped with ).
